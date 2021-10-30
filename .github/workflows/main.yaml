@@ -1,4 +1,4 @@
-name: Kamyroll python
+name: main
 on: push
 
 jobs:
