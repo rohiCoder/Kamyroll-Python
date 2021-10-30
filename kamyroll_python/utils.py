@@ -5,6 +5,7 @@ import os
 import json
 import sys
 from cryptography.fernet import Fernet
+from xdg import BaseDirectory
 from termcolor import colored
 import requests
 from pathlib import Path
@@ -13,15 +14,25 @@ src_path = Path(__file__).parent.absolute()
 
 
 def get_config():
-    if os.path.exists('kamyroll.json'):
-        file = open('kamyroll.json', 'r')
+    config_path = BaseDirectory.load_first_config("kamyroll.json")
+    if config_path:
+        file = open(config_path, 'r')
         config = json.load(file)
         file.close()
         return config
     else:
-        print_msg('ERROR: Configuration file not found.', 1)
-        sys.exit(0)
+        message = create_config()
+        raise LookupError(f'{message} \nERROR: Configuration file not found.')
 
+def create_config():
+    config_path = os.path.join(BaseDirectory.xdg_config_home, 'kamyroll.json')
+
+    with open(config_path, 'w') as config_file:
+        with open(os.path.join(src_path, 'kamyroll.json')) as starter_config:
+            starter_data = json.load(starter_config)
+            json.dump(starter_data, config_file, indent=4)
+
+    return f'Created config file at {config_path}. Please run the login command to populate the entries.'
 
 def get_login_form(args_login):
     try:
@@ -175,12 +186,15 @@ def get_error(json_request):
 
 
 def get_headers(config):
-    return {'User-Agent': config.get('configuration').get('user_agent'),
-            'Content-Type': 'application/x-www-form-urlencoded'}
+    return {
+        'User-Agent': config.get('configuration').get('user_agent'),
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
 
 
 def save_config(config):
-    file = open('kamyroll.json', 'w', encoding='utf8')
+    config_path = BaseDirectory.load_first_config("kamyroll.json")
+    file = open(config_path, 'w', encoding='utf8')
     file.write(json.dumps(config, indent=4, sort_keys=False, ensure_ascii=False))
     file.close()
 
@@ -294,8 +308,7 @@ def get_session(config):
                     'https': '{}://{}:{}'.format(proxy_type, host, port),
                 }
         else:
-            print_msg('ERROR: Unknown proxy type {}'.format(proxy_type), 1)
-            sys.exit(0)
+            raise ValueError("Unknown proxy type {}".format(proxy_type))
         session.proxies.update(proxies)
 
     return session

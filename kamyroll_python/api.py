@@ -1,8 +1,7 @@
 import sys
 import requests
-import extractor
-import utils
-
+from . import extractor
+from . import utils
 
 class crunchyroll:
 
@@ -24,10 +23,10 @@ class crunchyroll:
         if bypass:
             if 'error' in r or 'message' in r:
                 utils.print_msg('ERROR: Premium bypass is unavailable.', 1)
-                sys.exit(0)
+                sys.exit(1)
         else:
             if utils.get_error(r):
-                sys.exit(0)
+                sys.exit(1)
 
         access_token = r.get('access_token')
         refresh_token = r.get('refresh_token')
@@ -50,13 +49,13 @@ class crunchyroll:
         else:
             r = session.get('https://beta-api.crunchyroll.com/accounts/v1/me').json()
             if utils.get_error(r):
-                sys.exit(0)
+                sys.exit(1)
 
             external_id = r.get('external_id')
 
             r = session.get('https://beta-api.crunchyroll.com/accounts/v1/me/profile').json()
             if utils.get_error(r):
-                sys.exit(0)
+                sys.exit(1)
 
             email = r.get('email')
             username = r.get('username')
@@ -65,10 +64,10 @@ class crunchyroll:
         if bypass:
             if 'error' in r or 'message' in r:
                 utils.print_msg('ERROR: An error occurred during initialization.', 1)
-                sys.exit(0)
+                sys.exit(1)
         else:
             if utils.get_error(r):
-                sys.exit(0)
+                sys.exit(1)
 
         cms = r.get('cms')
         bucket = cms.get('bucket')
@@ -99,12 +98,11 @@ class crunchyroll:
                 utils.print_msg('[debug] Premium bypass enabled'.format(email), 0)
             else:
                 utils.print_msg('ERROR: Premium is unavailable.', 1)
-                sys.exit(0)
+                sys.exit(1)
         else:
             utils.print_msg('[debug] Connected account: [{}]'.format(email), 0)
 
         utils.save_config(self.config)
-        sys.exit(0)
 
     def search(self, query):
         authorization = utils.get_authorization(self.config, True)
@@ -123,12 +121,11 @@ class crunchyroll:
 
         r = session.get('https://beta-api.crunchyroll.com/content/v1/search', params=params).json()
         if utils.get_error(r):
-            sys.exit(0)
+            sys.exit(1)
 
         items = r.get('items')
         for item in items:
             extractor.search(item, self.config)
-        sys.exit(0)
 
     def season(self, series_id):
         (policy, signature, key_pair_id) = utils.get_token(self.config)
@@ -146,10 +143,9 @@ class crunchyroll:
         r = requests.get(endpoint, params=params).json()
 
         if utils.get_error(r):
-            sys.exit(0)
+            sys.exit(1)
 
         extractor.season(r, series_id)
-        sys.exit(0)
 
     def episode(self, season_id):
         (policy, signature, key_pair_id) = utils.get_token(self.config)
@@ -166,10 +162,9 @@ class crunchyroll:
         endpoint = 'https://beta-api.crunchyroll.com/cms/v2{}/episodes'.format(self.config.get('configuration').get('token').get('bucket'))
         r = requests.get(endpoint, params=params).json()
         if utils.get_error(r):
-            sys.exit(0)
+            sys.exit(1)
 
         extractor.episode(r, season_id, self.config)
-        sys.exit(0)
 
     def movie(self, movie_id):
         (policy, signature, key_pair_id) = utils.get_token(self.config)
@@ -187,6 +182,6 @@ class crunchyroll:
         r = requests.get(endpoint, params=params).json()
 
         if utils.get_error(r):
-            sys.exit(0)
+            sys.exit(1)
 
         extractor.movie(r, movie_id, self.config)

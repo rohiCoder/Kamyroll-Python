@@ -1,9 +1,9 @@
 import os
 import sys
 import requests
-import converter
-import extractor
-import utils
+from . import converter
+from . import extractor
+from . import utils
 
 
 def image(output, url):
@@ -171,7 +171,6 @@ class crunchyroll:
                 utils.print_msg('ERROR: Video extension is not supported.', 1)
                 sys.exit(0)
 
-        # sys.exit(0)
 
     def download_season(self, season_id, playlist_episode):
         (policy, signature, key_pair_id) = utils.get_token(self.config)
