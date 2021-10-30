@@ -1,5 +1,5 @@
 ![Kamyroll_Python](/Presentation/img_title.png)
-![app workflow](https://github.com/hyugogirubato/Kamyroll-Python/actions/workflows/main.yml/badge.svg)
+![app workflow](https://github.com/hyugogirubato/Kamyroll-Python/workflows/main/badge.svg)
 
 ## Description
 Kamyroll-python is the python version of the program used in the application [Kamyroll](https://github.com/hyugogirubato/Kamyroll). This will allow you to download the videos and subtitles proposed by the Crunchyroll catalog or MP4 and ASS format to allow you to view the videos on all your devices without connection.
