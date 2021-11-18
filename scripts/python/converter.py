@@ -8,8 +8,7 @@ Version: v2021.11.16
 import os
 import sys
 import requests
-# from . import utils
-import utils
+from . import utils
 
 
 class Subtitles:
