@@ -9,8 +9,7 @@ import os
 import sys
 from datetime import datetime
 import requests
-# from . import utils
-import utils
+from . import utils
 
 
 def search(json_search, config):
