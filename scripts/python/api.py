@@ -7,10 +7,8 @@ Version: v2021.11.16
 
 import sys
 import requests
-# from . import extractor
-# from . import utils
-import extractor
-import utils
+from . import extractor
+from . import utils
 
 
 class crunchyroll:
