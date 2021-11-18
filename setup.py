@@ -8,7 +8,7 @@ setup(
     author="hyugogirubato",
     license="MIT",
     scripts=["bin/kamyroll"],
-    packages=["kamyroll_python"],
+    packages=["scripts/python"],
     install_requires=[
         "requests",
         "colorama",
