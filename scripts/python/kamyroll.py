@@ -8,12 +8,9 @@ Version: v2021.11.16
 import argparse
 import sys
 from colorama import init
-# from . import api
-# from . import downloader
-# from . import utils
-import api
-import downloader
-import utils
+from . import api
+from . import downloader
+from . import utils
 
 
 def main():
