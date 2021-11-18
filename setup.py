@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="Kamyroll-Python",
-    version="0.0.2",
+    version="1.2.3",
     description="Download shows from crunchyroll",
     url="https://github.com/hyugogirubato/Kamyroll-Python",
     author="hyugogirubato",
