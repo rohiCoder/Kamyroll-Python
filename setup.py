@@ -15,7 +15,6 @@ setup(
         "termcolor",
         "pyxdg",
         "pysocks",
-        "cryptography",
     ],
     tests_requires=[],
     zip_safe=False,
