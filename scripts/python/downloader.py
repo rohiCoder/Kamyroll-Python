@@ -8,9 +8,9 @@ Version: v2021.11.16
 import os
 import sys
 import requests
-from . import converter
-from . import extractor
-from . import utils
+import converter
+import extractor
+import utils
 
 
 def image(output, url):
