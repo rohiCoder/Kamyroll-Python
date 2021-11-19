@@ -70,7 +70,7 @@ Language | Title
 
 ## Proxy configuration
 Secure proxy compatible with Crunchyroll: https://github.com/Snawoot/hola-proxy
-![proxy_example](/ressources/img_proxy.png)
+![proxy_example](/resources/img_proxy.png)
 
 #### Command
 - RED: Selected region
