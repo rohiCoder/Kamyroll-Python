@@ -87,18 +87,12 @@ Secure proxy compatible with Crunchyroll: https://github.com/Snawoot/hola-proxy
 ### Login with ID
 ```
 kamyroll --login "MAIL:PASSWORD"
-```
-or
-```
 kamyroll -l "MAIL:PASSWORD"
 ```
 
 ### Login with configured ID
 ```
 kamyroll --connect
-```
-or
-```
 kamyroll -c
 ```
 
@@ -110,54 +104,36 @@ kamyroll --search "QUERY"
 ### Show seasons of a series
 ```
 kamyroll --season "SERIES_ID"
-```
-or
-```
 kamyroll -s "SERIES_ID"
 ```
 
 ### Show episodes of a season
 ```
 kamyroll --episode "SEASON_ID"
-```
-or
-```
 kamyroll -e "SEASON_ID"
 ```
 
 ### Show movies from a movie list
 ```
 kamyroll --movie "MOVIE_ID"
-```
-or
-```
 kamyroll -m "MOVIE_ID"
 ```
 
 ### Download an episode or movie
 ```
 kamyroll --download "EPISODE_ID or MOVIE_ID"
-```
-or
-```
 kamyroll -d "EPISODE_ID or MOVIE_ID"
 ```
 
 ### Download playlist (bash download)
 ```
 kamyroll --download "SEASON_ID" --playlist "[START:END]"
-```
-or
-```
 kamyroll -d "SEASON_ID" -p "[START:END]"
 ```
 
 ### Get the video stream link (m3u8)
-```
+```bash
 kamyroll --url "EPISODE_ID or MOVIE_ID"
-```
-or
-```
 kamyroll -u "EPISODE_ID or MOVIE_ID"
 ```
 
