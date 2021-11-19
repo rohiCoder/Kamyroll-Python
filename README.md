@@ -1,5 +1,4 @@
-![Kamyroll_Python](/Presentation/img_title.png)
-![app workflow](https://github.com/hyugogirubato/Kamyroll-Python/workflows/main/badge.svg)
+![Kamyroll_Python]()
 
 ## Description
 Kamyroll-python is the python version of the program used in the application [Kamyroll](https://github.com/hyugogirubato/Kamyroll). This will allow you to download the videos and subtitles proposed by the Crunchyroll catalog or MP4 and ASS format to allow you to view the videos on all your devices without connection.
@@ -71,7 +70,7 @@ Language | Title
 
 ## Proxy configuration
 Secure proxy compatible with Crunchyroll: https://github.com/Snawoot/hola-proxy
-![proxy_example](/Presentation/img_proxy.png)
+![proxy_example](/ressources/img_proxy.png)
 
 #### Command
 - RED: Selected region
