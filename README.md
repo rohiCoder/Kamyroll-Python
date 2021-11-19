@@ -18,9 +18,10 @@ Kamyroll-python is the python version of the program used in the application [Ka
 - [ffmpeg](https://www.ffmpeg.org)
 - [Python](https://www.python.org/downloads) 3+
 
-### Installation
+### Pip Installation
+Provider: https://github.com/insidewhy/cuteroll
 ```bash
-pip install kamyroll_python
+pip install cuteroll
 ```
 
 ## Information
