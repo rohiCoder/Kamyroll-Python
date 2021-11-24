@@ -2,7 +2,7 @@
 """
 Script: Kamyroll-Pyhton
 Name: Downloader
-Version: v2021.11.16
+Version: v2021.11.23
 """
 
 import os
