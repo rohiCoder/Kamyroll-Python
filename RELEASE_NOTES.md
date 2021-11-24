@@ -4,7 +4,7 @@
 Stable version of Kamyroll-Python releases on November 24, 2021.
 -	Simplified configuration.
 -	Addition of encoding of personal identifiers for better protection.
--	Compatibility with the plugin for configuration.
+-	Compatibility with the plugin v1.1 for configuration.
 -	Added generation or reset of the configuration.
 
 -----------------
