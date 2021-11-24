@@ -2,7 +2,7 @@
 """
 Script: Kamyroll-Pyhton
 Name: Api
-Version: v2021.11.16
+Version: v2021.11.23
 """
 
 import sys
@@ -77,8 +77,8 @@ class crunchyroll:
         json_account = self.config.get('configuration').get('account')
         json_account['account_id'] = account_id
         json_account['external_id'] = external_id
-        json_account['email'] = email
-        json_account['password'] = password
+        json_account['email'] = utils.ascii_to_base64(email)
+        json_account['password'] = utils.ascii_to_base64(password)
         json_account['username'] = username
         self.config.get('configuration')['account'] = json_account
 
