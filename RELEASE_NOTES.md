@@ -2,17 +2,17 @@
 
 ### Version 1.2.4
 Stable version of Kamyroll-Python releases on November 24, 2021.
--	Simplified configuration.
--	Addition of encoding of personal identifiers for better protection.
--	Compatibility with the plugin v1.1 for configuration.
--	Added generation or reset of the configuration.
+-	Simplified configuration
+-	Addition of encoding of personal identifiers for better protection
+-	Compatibility with the plugin v1.1 for configuration
+-	Added generation or reset of the configuration
 
 -----------------
 
 ### Version 1.2.3
-Stable version of Kamyroll-Python releases on November 18, 2021.
+Stable version of Kamyroll-Python releases on November 18, 2021
 -	Optimization of the code
--	Correction of an error in the generation of the playlist.
+-	Correction of an error in the generation of the playlist
 
 -----------------
 
