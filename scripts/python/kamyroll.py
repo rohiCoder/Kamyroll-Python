@@ -2,7 +2,7 @@
 """
 Script: Kamyroll-Pyhton
 Name: Kamyroll
-Version: v2021.11.16
+Version: v2021.11.23
 """
 
 import argparse
@@ -15,6 +15,7 @@ import utils
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--reset',    '-r',  action='store_true', help='Reset and generate the configuration file')
     parser.add_argument('--login',    '-l',  type=str, help='Login with ID')
     parser.add_argument('--connect',  '-c',  action='store_true', help='Login with configured ID')
     parser.add_argument('--search',          type=str, help='Search a series, films, episode')
@@ -35,16 +36,22 @@ def main():
 
     cr_api = api.crunchyroll(config)
 
-    if args.login:
+    if args.reset:
+        utils.create_config()
+        sys.exit(0)
+    elif args.login:
         (username, password) = utils.get_login_form(args.login)
         cr_api.login(username, password)
     elif args.connect:
-        username = config.get('configuration').get('account').get('email')
-        password = config.get('configuration').get('account').get('password')
-        if username is None or password is None:
+        base64_email = config.get('configuration').get('account').get('email')
+        base64_password = config.get('configuration').get('account').get('password')
+        if base64_email is None or base64_password is None:
             utils.print_msg('ERROR: No login is configured.', 1)
             sys.exit(0)
-        cr_api.login(username, password)
+
+        email = utils.base64_to_ascii(base64_email)
+        password = utils.base64_to_ascii(base64_password)
+        cr_api.login(email, password)
     elif args.search:
         cr_api.search(args.search)
     elif args.season:
