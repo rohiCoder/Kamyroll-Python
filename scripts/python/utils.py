@@ -320,8 +320,7 @@ def get_token(config):
     minute = datetime.now().minute
     second = datetime.now().second
 
-    current_time = datetime.strptime('{}-{}-{}T{}:{}:{}Z'.format(year, month, day, hour, minute, second),
-                                     '%Y-%m-%dT%H:%M:%SZ')
+    current_time = datetime.strptime('{}-{}-{}T{}:{}:{}Z'.format(year, month, day, hour, minute, second), '%Y-%m-%dT%H:%M:%SZ')
     expires_time = datetime.strptime(config.get('configuration').get('token').get('expires'), '%Y-%m-%dT%H:%M:%SZ')
 
     if current_time >= expires_time:
