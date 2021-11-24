@@ -2,27 +2,38 @@
 """
 Script: Kamyroll-Pyhton
 Name: Utils
-Version: v2021.11.16
+Version: v2021.11.23
 """
 
+import base64
 import math
 from datetime import datetime
 import os
 import json
 import sys
-from xdg import BaseDirectory
 from termcolor import colored
 import requests
-from pathlib import Path
 
-src_path = Path(__file__).parent.absolute()
-CONFIG_FILE = 'kamyroll.json'
+CONFIG_FILE = 'config.json'
+
+
+def ascii_to_base64(message):
+    message_bytes = message.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    base64_message = base64_bytes.decode('ascii')
+    return base64_message
+
+
+def base64_to_ascii(base64_message):
+    base64_bytes = base64_message.encode('ascii')
+    message_bytes = base64.b64decode(base64_bytes)
+    message = message_bytes.decode('ascii')
+    return message
 
 
 def get_config():
-    config_path = BaseDirectory.load_first_config(CONFIG_FILE)
-    if config_path:
-        file = open(config_path, 'r')
+    if os.path.exists(CONFIG_FILE):
+        file = open(CONFIG_FILE, 'r')
         config = json.load(file)
         file.close()
         return config
@@ -33,12 +44,62 @@ def get_config():
 
 
 def create_config():
-    config_path = os.path.join(BaseDirectory.xdg_config_home, CONFIG_FILE)
-    with open(config_path, 'w') as config_file:
-        with open(os.path.join(src_path, CONFIG_FILE)) as starter_config:
-            starter_data = json.load(starter_config)
-            json.dump(starter_data, config_file, indent=4)
-    print_msg('WARRING: Created config file at {} Please run the login command to populate the entries.'.format(config_path), 2)
+    json_config = {
+        'configuration': {
+            'user_agent': 'Crunchyroll/3.10.0 Android/6.0 okhttp/4.9.1',
+            'token': {
+                'token_type': 'Basic',
+                'access_token': 'aHJobzlxM2F3dnNrMjJ1LXRzNWE6cHROOURteXRBU2Z6QjZvbXVsSzh6cUxzYTczVE1TY1k=',
+                'refresh_token': '',
+                'bucket': '',
+                'policy': '',
+                'signature': '',
+                'key_pair_id': '',
+                'expires': ''
+            },
+            'account': {
+                'account_id': '',
+                'external_id': '',
+                'email': '',
+                'password': '',
+                'username': ''
+            }
+        },
+        'preferences': {
+            'download': {
+                'video': True,
+                'subtitles': True,
+                'path': 'Downloads'
+            },
+            'subtitles': {
+                'language': 'en-US',
+                'ass': True,
+                'vtt': False,
+                'srt': False
+            },
+            'image': {
+                'cover': True,
+                'thumbnail': False
+            },
+            'video': {
+                'hardsub': False,
+                'resolution': 1080,
+                'extension': 'mp4',
+                'attached_picture': True,
+                'metadata': True
+            },
+            'proxy': {
+                'is_proxy': False,
+                'uuid': '',
+                'agent_key': '',
+                'host': '',
+                'port': ''
+            }
+        }
+    }
+
+    save_config(json_config)
+    print_msg('WARRING: Created config file at {} Please run the login command to populate the entries.'.format(CONFIG_FILE), 2)
 
 
 def get_login_form(args_login):
@@ -183,8 +244,7 @@ def get_headers(config):
 
 
 def save_config(config):
-    config_path = BaseDirectory.load_first_config(CONFIG_FILE)
-    file = open(config_path, 'w', encoding='utf-8')
+    file = open(CONFIG_FILE, 'w', encoding='utf-8')
     file.write(json.dumps(config, indent=4, sort_keys=False, ensure_ascii=False))
     file.close()
 
@@ -260,7 +320,8 @@ def get_token(config):
     minute = datetime.now().minute
     second = datetime.now().second
 
-    current_time = datetime.strptime('{}-{}-{}T{}:{}:{}Z'.format(year, month, day, hour, minute, second),'%Y-%m-%dT%H:%M:%SZ')
+    current_time = datetime.strptime('{}-{}-{}T{}:{}:{}Z'.format(year, month, day, hour, minute, second),
+                                     '%Y-%m-%dT%H:%M:%SZ')
     expires_time = datetime.strptime(config.get('configuration').get('token').get('expires'), '%Y-%m-%dT%H:%M:%SZ')
 
     if current_time >= expires_time:
