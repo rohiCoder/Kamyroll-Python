@@ -269,10 +269,12 @@ def get_metadata(type, id, config):
         title = r.get('title')
         description = r.get('description')
 
+        """
         episode_air_date = r.get('episode_air_date')
         if '+' in episode_air_date:
             episode_air_date = '{}Z'.format(episode_air_date.split('+')[0])
         episode_air_date = datetime.strptime(episode_air_date, '%Y-%m-%dT%H:%M:%SZ')
+        """
 
         series_title = utils.check_characters(series_title)
         title = utils.check_characters(title)
